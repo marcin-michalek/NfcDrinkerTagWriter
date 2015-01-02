@@ -6,7 +6,7 @@ package pl.michalek.marcin.nfcdrinkertagwriter.network.request;
 
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
-import pl.michalek.marcin.nfcdrinkertagwriter.network.ServicePahts;
+import pl.michalek.marcin.nfcdrinkertagwriter.network.ServicePaths;
 import pl.michalek.marcin.nfcdrinkertagwriter.network.response.StringListResponse;
 
 /**
@@ -21,6 +21,6 @@ public class AlcoholKindRequest extends SpringAndroidSpiceRequest<StringListResp
 
   @Override
   public StringListResponse loadDataFromNetwork() throws Exception {
-    return getRestTemplate().getForObject(ServicePahts.ALCOHOL_KIND_URL, StringListResponse.class);
+    return getRestTemplate().getForObject(ServicePaths.ALCOHOL_KIND_URL, StringListResponse.class);
   }
 }

@@ -19,4 +19,13 @@
         <item>FEMALE</item>
     </string-array>
 
+    <!--ARRAYS-->
+    <string-array name="stomach">
+        <item>EMPTY</item>
+        <item>SEMI-FULL</item>
+        <item>FULL</item>
+    </string-array>
+
+    <!--PROGRESS-->
+    <string name="downloading">Downloading…</string>`
 </resources>

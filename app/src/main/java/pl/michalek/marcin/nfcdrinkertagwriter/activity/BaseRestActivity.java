@@ -5,6 +5,7 @@
 package pl.michalek.marcin.nfcdrinkertagwriter.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import com.octo.android.robospice.GsonSpringAndroidSpiceService;
 import com.octo.android.robospice.SpiceManager;
 
@@ -19,6 +20,7 @@ public class BaseRestActivity extends Activity {
   }
 
   protected SpiceManager spiceManager = new SpiceManager(GsonSpringAndroidSpiceService.class);
+  protected ProgressDialog progressDialog;
 
   @Override
   protected void onStart() {
@@ -32,4 +34,11 @@ public class BaseRestActivity extends Activity {
     super.onStop();
   }
 
+  protected void showProgressDialog(String title, String message){
+    progressDialog = ProgressDialog.show(this, title, message);
+  }
+
+  protected void hideProgressDialog(){
+    progressDialog.dismiss();
+  }
 }

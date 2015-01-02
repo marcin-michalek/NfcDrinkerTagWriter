@@ -11,20 +11,30 @@
 
     <EditText
             android:hint="@string/name"
+            android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
 
     <EditText
             android:hint="@string/weight"
+            android:id="@+id/weightEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
     <EditText
             android:hint="@string/height"
+            android:id="@+id/heightEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
+
+    <Spinner
+            android:entries="@array/stomach"
+            android:id="@+id/stomachStateSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     <Spinner
             android:hint="@string/gender"
             android:id="@+id/genderSpinner"
@@ -38,12 +48,14 @@
             android:layout_height="wrap_content"/>
     <EditText
             android:hint="@string/alcohol_voltage"
+            android:id="@+id/alcoholVoltageEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
 
     <Button android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/write_tag"/>
+            android:text="@string/write_tag"
+            android:id="@+id/writeTagButton"/>
 
 </LinearLayout>
