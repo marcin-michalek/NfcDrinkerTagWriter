@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NfcDrinkerTagWriter</string>
+    <string name="action_settings">Settings</string>
+
+    <!--INPUT FORM-->
+    <string name="name">Name:</string>
+    <string name="height">Height (cm)</string>
+    <string name="weight">Weight (kg)</string>
+    <string name="gender">Gender</string>
+    <string name="alcohol_kind">Alcohol kind</string>
+    <string name="alcohol_voltage">Alcohol voltage (%)</string>
+    <string name="write_tag">WRITE TAG</string>
+
+    <!--ARRAYS-->
+    <string-array name="gender">
+        <item>MALE</item>
+        <item>FEMALE</item>
+    </string-array>
+
+</resources>
