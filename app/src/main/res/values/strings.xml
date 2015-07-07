@@ -11,6 +11,7 @@
     <string name="gender">Gender</string>
     <string name="alcohol_kind">Alcohol kind</string>
     <string name="alcohol_voltage">Alcohol voltage (%)</string>
+    <string name="shot_capacity">Shot capacity (ml)</string>`
     <string name="write_tag">WRITE TAG</string>
 
     <!--ARRAYS-->
@@ -27,5 +28,5 @@
     </string-array>
 
     <!--PROGRESS-->
-    <string name="downloading">Downloading…</string>`
+    <string name="downloading">Downloading…</string>
 </resources>

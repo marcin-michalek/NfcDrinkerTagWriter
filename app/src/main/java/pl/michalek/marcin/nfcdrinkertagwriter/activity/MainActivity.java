@@ -2,19 +2,22 @@ package pl.michalek.marcin.nfcdrinkertagwriter.activity;
 
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.nfc.*;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import com.google.gson.Gson;
 import pl.michalek.marcin.nfcdrinkertagwriter.R;
+import pl.michalek.marcin.nfcdrinkertagwriter.config.Constants;
 import pl.michalek.marcin.nfcdrinkertagwriter.network.BaseNonContextRequestListener;
 import pl.michalek.marcin.nfcdrinkertagwriter.network.request.AlcoholKindRequest;
 import pl.michalek.marcin.nfcdrinkertagwriter.network.response.StringListResponse;
@@ -28,9 +31,10 @@ import static android.nfc.NdefRecord.createMime;
 public class MainActivity extends BaseRestActivity {
   @InjectView(R.id.alcoholKindSpinner)
   Spinner alcoholKindSpinner;
- NfcAdapter nfcAdapter;
 
-  PendingIntent pendingIntent;
+  private NfcAdapter nfcAdapter;
+
+  private PendingIntent pendingIntent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +52,11 @@ public class MainActivity extends BaseRestActivity {
   protected void onResume() {
     super.onResume();
     nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
-
   }
 
   @Override
   protected void onPause() {
     nfcAdapter.disableForegroundDispatch(this);
-
     super.onPause();
   }
 
@@ -69,12 +71,7 @@ public class MainActivity extends BaseRestActivity {
     });
   }
 
-  @OnClick(R.id.writeTagButton)
-  void writeToTag() {
-
-  }
-
-  private Drinker createdDrinker() {
+  private Drinker createdDrinkerFromUserInput() {
     Drinker drinker = new Drinker();
     drinker.setName(((EditText) findViewById(R.id.nameEditText)).getText().toString());
     drinker.setWeight(Double.parseDouble(((EditText) findViewById(R.id.weightEditText)).getText().toString()));
@@ -83,6 +80,7 @@ public class MainActivity extends BaseRestActivity {
     drinker.setAlcoholVoltage(Double.parseDouble(((EditText) findViewById(R.id.alcoholVoltageEditText)).getText().toString()));
     drinker.setGender(((Spinner) findViewById(R.id.genderSpinner)).getSelectedItem().toString());
     drinker.setStomach(((Spinner) findViewById(R.id.stomachStateSpinner)).getSelectedItem().toString());
+    drinker.setShotCapacity(Double.parseDouble(((EditText) findViewById(R.id.shotCapacityEditText)).getText().toString()));
     return drinker;
   }
 
@@ -92,44 +90,36 @@ public class MainActivity extends BaseRestActivity {
     Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
     NdefMessage ndefMessage = createNdefMessage();
     writeTag(ndefMessage, tag);
-
   }
 
-  public void writeTag(NdefMessage message, Tag tag) {
-      int size = message.toByteArray().length;
-      String mess = "";
-      try {
-        Ndef ndef = Ndef.get(tag);
-        if (ndef != null) {
-          ndef.connect();
-
-          ndef.writeNdefMessage(message);
-
-        } else {
-          NdefFormatable format = NdefFormatable.get(tag);
-          if (format != null) {
-            try {
-              format.connect();
-              format.format(message);
-              mess = "Formatted tag and wrote message";
-            } catch (IOException e) {
-              mess = "Failed to format tag.";
-            }
-          } else {
-            mess = "Tag doesn't support NDEF.";
+  public void writeTag(NdefMessage ndefMessage, Tag tag) {
+    try {
+      Ndef ndef = Ndef.get(tag);
+      if (ndef != null) {
+        ndef.connect();
+        ndef.writeNdefMessage(ndefMessage);
+      } else {
+        NdefFormatable format = NdefFormatable.get(tag);
+        if (format != null) {
+          try {
+            format.connect();
+            format.format(ndefMessage);
+          } catch (IOException e) {
+            Log.e(Constants.LOGTAG, e.getMessage(), e);
           }
         }
-      } catch (Exception e) {
-        mess = "Failed to write tag";
       }
+    } catch (Exception e) {
+      Log.e(Constants.LOGTAG, e.getMessage(), e);
     }
+  }
 
   public NdefMessage createNdefMessage() {
     return new NdefMessage(
         new NdefRecord[]{
             createMime(
-                "application/pl.michalek.marcin.nfcdrinkertagwriter", new Gson().toJson(createdDrinker()).getBytes())
-            , NdefRecord.createApplicationRecord("pl.michalek.marcin.nfcdrinkerstation")
+                Constants.TAG_WRITER_MIME_TYPE, new Gson().toJson(createdDrinkerFromUserInput()).getBytes())
+            , NdefRecord.createApplicationRecord(Constants.DRINKER_STATION_APP_RECORD)
         });
   }
 }

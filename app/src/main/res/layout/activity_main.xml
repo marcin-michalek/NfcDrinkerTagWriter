@@ -53,9 +53,11 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"/>
 
-    <Button android:layout_width="match_parent"
+    <EditText
+            android:hint="@string/shot_capacity"
+            android:id="@+id/shotCapacityEditText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/write_tag"
-            android:id="@+id/writeTagButton"/>
+            android:inputType="numberDecimal"/>
 
 </LinearLayout>

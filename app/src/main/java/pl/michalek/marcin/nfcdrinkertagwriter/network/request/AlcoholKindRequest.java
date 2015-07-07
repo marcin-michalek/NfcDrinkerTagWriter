@@ -10,7 +10,6 @@ import pl.michalek.marcin.nfcdrinkertagwriter.network.ServicePaths;
 import pl.michalek.marcin.nfcdrinkertagwriter.network.response.StringListResponse;
 
 /**
- * TODO Add class description...
  *
  * @author Marcin Michałek
  */

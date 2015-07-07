@@ -10,7 +10,6 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import pl.michalek.marcin.nfcdrinkertagwriter.config.Constants;
 
 /**
- * TODO Add class description...
  *
  * @author Marcin Michałek
  */
