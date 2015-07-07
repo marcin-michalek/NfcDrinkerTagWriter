@@ -10,11 +10,10 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.*;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import com.google.gson.Gson;
 import pl.michalek.marcin.nfcdrinkertagwriter.R;
 import pl.michalek.marcin.nfcdrinkertagwriter.config.Constants;
@@ -32,6 +31,18 @@ public class MainActivity extends BaseRestActivity {
   @InjectView(R.id.alcoholKindSpinner)
   Spinner alcoholKindSpinner;
 
+  @InjectView(R.id.genderSpinner)
+  Spinner genderSpinner;
+
+  @InjectView(R.id.stomachStateSpinner)
+  Spinner stomachSpinner;
+
+  @InjectView(R.id.write_to_tag)
+  Button writeToTagButton;
+
+  @InjectView(R.id.main_form)
+  ScrollView mainForm;
+
   private NfcAdapter nfcAdapter;
 
   private PendingIntent pendingIntent;
@@ -41,11 +52,28 @@ public class MainActivity extends BaseRestActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
-    downloadAlcoholKinds();
+    initSpinners();
     nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-
     pendingIntent = PendingIntent.getActivity(
         this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+  }
+
+  private void initSpinners() {
+    downloadAlcoholKinds();
+    initGenderSpinner();
+    initStomachSpinner();
+  }
+
+  private void initGenderSpinner() {
+    genderSpinner.setAdapter(new ArrayAdapter<>(MainActivity.this,
+        android.R.layout.simple_dropdown_item_1line,
+        getResources().getStringArray(R.array.gender)));
+  }
+
+  private void initStomachSpinner() {
+    stomachSpinner.setAdapter(new ArrayAdapter<>(MainActivity.this,
+        android.R.layout.simple_dropdown_item_1line,
+        getResources().getStringArray(R.array.stomach)));
   }
 
   @Override
@@ -112,6 +140,7 @@ public class MainActivity extends BaseRestActivity {
     } catch (Exception e) {
       Log.e(Constants.LOGTAG, e.getMessage(), e);
     }
+    animateIdleState();
   }
 
   public NdefMessage createNdefMessage() {
@@ -121,5 +150,20 @@ public class MainActivity extends BaseRestActivity {
                 Constants.TAG_WRITER_MIME_TYPE, new Gson().toJson(createdDrinkerFromUserInput()).getBytes())
             , NdefRecord.createApplicationRecord(Constants.DRINKER_STATION_APP_RECORD)
         });
+  }
+
+  @OnClick(R.id.write_to_tag)
+  void animateWritingState() {
+    writeToTagButton.animate()
+        .translationYBy(-100);
+    writeToTagButton.setEnabled(false);
+    writeToTagButton.setText(R.string.writing);
+  }
+
+  void animateIdleState() {
+    writeToTagButton.animate()
+        .translationYBy(100);
+    writeToTagButton.setEnabled(true);
+    writeToTagButton.setText(getString(R.string.write_to_tag));
   }
 }

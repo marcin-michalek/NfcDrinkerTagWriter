@@ -4,8 +4,8 @@
  */
 package pl.michalek.marcin.nfcdrinkertagwriter.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.support.v7.app.AppCompatActivity;
 import com.octo.android.robospice.GsonSpringAndroidSpiceService;
 import com.octo.android.robospice.SpiceManager;
 
@@ -14,7 +14,7 @@ import com.octo.android.robospice.SpiceManager;
  *
  * @author Marcin Michałek
  */
-public class BaseRestActivity extends Activity {
+public class BaseRestActivity extends AppCompatActivity {
   public SpiceManager getSpiceManager() {
     return spiceManager;
   }

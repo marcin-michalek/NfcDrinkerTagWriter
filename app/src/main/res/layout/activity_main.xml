@@ -1,63 +1,91 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              tools:context=".MainActivity"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <EditText
-            android:hint="@string/name"
-            android:id="@+id/nameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <ScrollView
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:id="@+id/main_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-    <EditText
-            android:hint="@string/weight"
-            android:id="@+id/weightEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
-    <EditText
-            android:hint="@string/height"
-            android:id="@+id/heightEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:orientation="vertical">
 
-    <Spinner
-            android:entries="@array/stomach"
-            android:id="@+id/stomachStateSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:singleLine="true" />
 
-    <Spinner
-            android:hint="@string/gender"
-            android:id="@+id/genderSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/gender"/>
-    <Spinner
-            android:text="@string/alcohol_kind"
-            android:id="@+id/alcoholKindSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    <EditText
-            android:hint="@string/alcohol_voltage"
-            android:id="@+id/alcoholVoltageEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            <EditText
+                android:id="@+id/weightEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/weight"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
 
-    <EditText
-            android:hint="@string/shot_capacity"
-            android:id="@+id/shotCapacityEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            <EditText
+                android:id="@+id/heightEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/height"
+                android:inputType="numberDecimal"
+
+                android:singleLine="true" />
+
+            <Spinner
+                android:id="@+id/stomachStateSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/stomach" />
+
+            <Spinner
+                android:id="@+id/genderSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/gender" />
+
+            <Spinner
+                android:id="@+id/alcoholKindSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/alcohol_kind" />
+
+            <EditText
+                android:id="@+id/alcoholVoltageEditText"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:hint="@string/alcohol_voltage"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/shotCapacityEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/shot_capacity"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/write_to_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/write_to_tag" />
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>
